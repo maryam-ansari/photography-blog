@@ -1,0 +1,126 @@
+{% load static %}
+{% include 'base/nav.html' %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Section</title>
+</head>
+
+<style>
+    body{
+    }
+    .forms{
+        margin: 5% 20%;
+    }
+
+    #drop-area{
+width: 400px;
+height: 300px;
+padding: 15px;
+background-color: white;
+text-align: center;
+border-radius: 20px;
+cursor: pointer;
+}
+img{
+width: 200px;
+}
+
+#img-view{
+width: 100%;
+height: 100%;
+border-radius: 30px;
+border: 2px dashed dodgerblue;
+background-color: rgb(255, 255, 255);
+background-position:center;
+background-size: cover;
+}
+
+#img-view span{
+display: block;
+font-size: 15px;
+color: #000000;
+margin-top: 15px;
+}
+</style>
+</head>
+<body>
+<div class="forms">
+    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="">Select any Category</label> <br>
+        <br>
+    <select class="form-select" aria-label="Default select example" name="category">
+        <option value="none">Select a Category (or) Enter new one below</option>
+        {% for i in categories %}
+        <option value="{{ i.id }}">{{ i.name }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">New Category</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" name="category_new" placeholder="Enter a new Category">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Title</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" name="title" placeholder="Enter a tile for your post">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" required placeholder="Write Something about your post"></textarea>
+      </div>
+      <label for="exampleFormControlTextarea1" class="form-label">Upload Image</label>
+      <div class="mb-3">
+        
+        <label for="input-file" id="drop-area">
+            <input type="file" accept="image/*" id="input-file" hidden name="image" required>
+            <div id="img-view">
+                <img src="{% static 'images/undraw_Upload_re_pasx.png' %}" alt="">
+                <span>Drag & Drop (or) click here <br> to upload images </span>
+                <span>Upload images from Desktop</span> 
+            </div>
+        </label>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-upload"></i>  Upload Details</button>
+    </form>
+</div>
+
+
+
+
+
+<script>
+    const dropArea = document.getElementById("drop-area");
+    const inputFile = document.getElementById("input-file");
+    const imageView = document.getElementById("img-view");
+
+    inputFile.addEventListener("change", uploadImage);
+
+    function uploadImage(){
+            let imgLink = URL.createObjectURL(inputFile.files[0]);
+            imageView.style.backgroundImage = `url(${imgLink})`;
+            imageView.textContent = "";
+            imageView.style.border = 0;
+
+    }
+    dropArea.addEventListener("dragover", function(a){
+        a.preventDefault();
+    });
+    dropArea.addEventListener("drop", function(a){
+        a.preventDefault();
+        inputFile.files = a.dataTransfer.files;
+        uploadImage();
+    });
+    dropArea.ondragover = function(){
+       dropArea.style.backgroundColor = "rgb(0, 211, 0)";
+       imageView.style.border = "2px solid grey";
+    }
+    dropArea.ondragleave = function(){
+       dropArea.style.backgroundColor = "white";
+       imageView.style.border = "2px dashed grey";
+    }
+</script>

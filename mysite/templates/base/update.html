@@ -1,0 +1,31 @@
+{% load static %}
+{% include 'base/nav.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit : " {{title.title}} " post</title>
+</head>
+
+<style>
+    
+    .forms{
+        margin: 5% 20%;
+    }
+
+   
+</style>
+<div class="forms">
+    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
+    <center><form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form></center>
+</div>
+
+
+{% endblock %}

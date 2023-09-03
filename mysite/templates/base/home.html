@@ -1,0 +1,182 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/6a72a8e32d.js" crossorigin="anonymous"></script>
+    <style>
+        .containers{
+            margin: 5% 10%;
+        }
+    </style>
+</head>
+{% endblock %}
+<body>
+    {% include 'base/nav.html' %}
+    
+    <br>
+    
+    
+      
+
+      <div class="containers">
+        <div class="card text-center">
+          <div class="card-header">
+            Profile
+          </div>
+          <div class="card-body">
+            {% if user %}
+            <h5 class="card-title">Welcome {{user.username}}</h5>
+           
+            {% endif %}
+           
+            {% if request.user.is_authenticated %}
+              <p>You were successfully logged in</p>
+            {% else %}
+            <p>You were logged out</p>
+            {% endif %}
+            <!-- Button trigger modal -->
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}"><button class="btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout</button></a>
+            {% else %}
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <i class="fa-solid fa-right-to-bracket"></i>&nbsp; Login
+</button>
+{% endif %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-circle-user"></i>&nbsp;Login User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"><i class="fa-solid fa-user"></i>&nbsp; User name</label>
+            <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"><i class="fa-solid fa-key"></i>&nbsp; Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <br>
+         
+<br>
+          <button type="submit" value="Login" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Login</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i>&nbsp; Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+          </div>
+          <div class="card-footer text-body-secondary">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <p><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ff0000;"></i> {{ message }}</p>
+                
+                {% endfor %}
+
+             
+                
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <br> <br>
+
+
+
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="4000">
+                <img src="{% static 'images/1.png' %}" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'images/2.png' %}" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'images/3.png' %}" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <br>
+          <br>
+          <br>
+        
+          <h3>Explore</h3>
+          
+          <br>
+          <br>
+          <div class="row row-cols-1 row-cols-md-3 g-4" >
+            {% for i in photo %}
+           
+            <div class="col">
+              <div class="card h-100">
+                <img src="{{i.image.url}}" class="card-img-top" alt="...">
+                
+                <div class="card-body">
+                  {% if user %}
+                  <h6 class="card-title">@{{user.username}}</h6>
+                  {% else %}
+                  <h6 class="card-title">Login to see user</h6>
+                  {% endif %}
+                  <h3 class="card-title">{{i.title}}</h3>
+                  <h5 class="card-title">Category : {{i.category.name}}</h5> <br>
+                  <a href="read/{{i.title}}"><button class="btn btn-primary"><i class="fa-brands fa-readme" class="fa-brands fa-readme" style="color: #ffffff;"></i>&nbsp; View post</button></a>  &nbsp;
+
+                  <a href="{{i.image.url}}" download><button class="btn btn-outline-primary"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
+                    
+                    <a href="update/{{i.title}}"><button class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
+                   
+                    <a href="delete/{{i.title}}"><button name="delete" class="btn btn-outline-danger" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+
+                   
+                  
+                </div>
+                <div class="card-footer">
+                  <small class="text-body-secondary">{{i.created}}</small>
+                  
+                </div>
+              </div>
+            </div>
+            
+            {% empty %}
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Oh! There's nothing</h5> <br>
+                <p class="card-text">Start a post by clicking on <i class="fa-solid fa-upload fa-2xs" style="color: #000000;"></i> &nbsp; Upload button</p>
+                <br> <a href="{% url 'upload' %}"><button class="btn btn-primary"><i class="fa-solid fa-square-plus fa-beat-fade"></i>&nbsp; Create a post</button></a> </h3></center> 
+              </div>
+            </div>
+            
+            {% endfor %}
+            
+          </div>
+      </div>
+
+      
+</body>
+</html>

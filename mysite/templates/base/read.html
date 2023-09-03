@@ -1,0 +1,57 @@
+{% include 'base/nav.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic : {{objs.title}}</title>
+</head>
+
+<style>
+    .contents{
+        margin: 5% 15%;
+    }
+</style>
+<div class="contents">
+<a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
+<br>
+<br>
+<br>
+
+<div class="card mb-3">
+    <img src="{{objs.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h4 class="card-title">Title : {{objs.title}}</h4>
+      <h6 class="card-text">Category : {{objs.category.name}}</h6> <br>
+
+     
+
+    
+      <p class="d-inline-flex gap-1">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa-solid fa-caret-down fa-fade"></i>&nbsp;  Read post...
+        </a>&nbsp;
+        <a href="{{objs.image.url}}" download><button class="btn btn-outline-primary"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
+        
+        <a href="{% url 'update' objs.title %}"><button class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
+       
+        <a href="{% url 'delete' objs.title %}"><button name="delete" class="btn btn-outline-danger" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+        {{objs.description}}
+        </div>
+      </div>
+      <p class="card-text"><small class="text-body-secondary">Posted on {{objs.created}}</small></p>
+    </div>
+  </div>
+   
+ 
+
+</div>
+{% endblock %}
