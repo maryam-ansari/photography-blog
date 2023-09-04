@@ -1,8 +1,9 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -15,14 +16,14 @@ def home(request):
     search = request.GET.get('search') if request.GET.get('search') != None else ''
     categories = Category.objects.filter(name__contains=search)
     data = request.GET.get('category')
-    
+   
     if data != None:
         photo = Photo.objects.filter(category__name=data)
     else:
         photo = Photo.objects.all()
     
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         print('user',username)
         print('pwd',password)
@@ -38,7 +39,7 @@ def home(request):
             return redirect('home')
         else:
             messages.error(request,"User name or password is invalid")
-
+    #users = User.objects.all
     context = {'categories' : categories,'photo' : photo}
     return render(request, 'base/home.html',context)
     
@@ -54,11 +55,26 @@ def loginUser(request):
 
     return render(request,'base/login.html')
 
+def registerUser(request):
+    page = 'register'
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request," An unexpected error occured !")
+    return render(request,'base/register.html',{'form' : form})
 
 @login_required(login_url='login')
 def upload(request):
     categories = Category.objects.all()
     photo = Photo.objects.all()
+
 
     if request.method == 'POST':
         data = request.POST
@@ -107,10 +123,11 @@ def delete(request,t):
     #categories = Category.objects.get(id=fk)
     photo = Photo.objects.get(title = t)
     
-    if request.method == 'POST':
-        photo.delete()
-        #photo.category.delete()
-        return redirect('home')
+    if request.user == photo.user:    
+        if request.method == 'POST':
+            photo.delete()
+            #photo.category.delete()
+            return redirect('home')
     
     context = {'obj' : photo}
 
@@ -120,10 +137,26 @@ def delete(request,t):
 def read(request,t):
     #categories = Category.objects.get(id=fk)
     photo = Photo.objects.get(title = t)
-    
+    msg = Comments.objects.all().order_by('-created')
 
-    context = {'objs' : photo}
+    if request.method == 'POST':
+        add = Comments.objects.create(
+            user=request.user,
+            message=request.POST.get('cmt')
+        )
+        #print('cmts : ',request.POST.get('cmt'))
+        #return redirect('read',photo.title)
+
+       
+       
+
+    context = {'objs' : photo,'msg' : msg}
 
     return render(request, 'base/read.html',context)
 
-
+def delete_message(request,id):
+    mem = Comments.objects.get(id=id)
+    print('id :',mem)
+    mem.delete()
+    
+    return redirect('home')

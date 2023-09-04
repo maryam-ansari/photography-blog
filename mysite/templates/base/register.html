@@ -1,0 +1,43 @@
+{% load static %}
+{% include 'base/nav.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+<style>
+    .cont{
+        margin: 5% 10%;
+    }
+</style>
+<div class="cont">
+    <div class="card">
+        <div class="card-body">
+    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
+   <br>
+   <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+           <center><h3><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ff0000;"></i> {{ message }}</h3></center> 
+            
+            {% endfor %}
+
+         
+            
+        </ul>
+        {% endif %}
+        <br>
+       {{form.as_p}} <br>
+       <button class="btn btn-primary">Create new account</button>
+       <br> &nbsp; <p>Already have an account ?</p> 
+       <a href="{% url 'home' %}" class="btn btn-outline-primary">Login</a>
+    </form>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -47,6 +47,43 @@
         {{objs.description}}
         </div>
       </div>
+      <br>
+        
+          <div class="card card-body" >
+            {% if request.user.is_authenticated %}
+            <form action="" method="post">
+              {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Post Comments</label>
+              <input class="form-control" id="exampleFormControlTextarea1" name="cmt" ></input> <br>
+              <button type="submit" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i>&nbsp; Post</button>
+            </div></form> 
+            {% else %}
+            <p><a href="{% url 'home' %}" class="btn btn-outline-primary">Login</a> to add comments</p>
+            {% endif %}
+            <br>
+            <ul>
+              {% for m in msg %}
+                  <li style="list-style: none;"><strong>@{{ m.user.username }}</strong> <i>{{ m.created|timesince }} ago</i> &nbsp;</li>
+                  {% if request.user == m.user %} 
+                    
+                    
+                   <a href="delete_message/{{m.id}}"><button class="btn" type="submit" name="dele"><i class="fa-solid fa-trash-can" style="color: #ff0000;"></i></button></a> 
+                     
+                  
+                  {% endif %}
+                   {{ m.message }} 
+                   <br> <br>
+              {% empty %}
+                 <center><li style="list-style: none;"><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> &nbsp; No comments yet</li></center> 
+              {% endfor %}
+          </ul>
+          </div>
+       
+
+      
+      
+      
       <p class="card-text"><small class="text-body-secondary">Posted on {{objs.created}}</small></p>
     </div>
   </div>
@@ -54,4 +91,8 @@
  
 
 </div>
+
+
+
+
 {% endblock %}
