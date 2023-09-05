@@ -26,19 +26,24 @@
 
       <div class="containers">
         <div class="card text-center">
+          {% if request.user.is_authenticated %}
           <div class="card-header">
             Profile
           </div>
+          {% else %}
+          <div class="card-header">
+            
+          </div>
+          {% endif %}
           <div class="card-body">
-            {% if user %}
-            <h5 class="card-title">Welcome {{user.username}}</h5>
-           
-            {% endif %}
-           
             {% if request.user.is_authenticated %}
-              <p>You were successfully logged in</p>
+            <h5 class="card-title">Welcome {{user.username}}</h5>
+            <p>You were successfully logged in</p>
+            
             {% else %}
+            <h6 class="card-title">Login or create an account to join us</h6>
             <p>You were logged out</p>
+
             {% endif %}
             <!-- Button trigger modal -->
             {% if request.user.is_authenticated %}
@@ -102,7 +107,7 @@
 
 
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner  rounded-5">
               <div class="carousel-item active" data-bs-interval="4000">
                 <img src="{% static 'images/1.png' %}" class="d-block w-100" alt="...">
               </div>
@@ -136,26 +141,28 @@
             {% for i in photo %}
            
             <div class="col">
-              <div class="card h-100">
-                <img src="{{i.image.url}}" class="card-img-top" alt="...">
+              <div class="card h-100 rounded-5 bg-primary-subtle">
+                <img src="{{i.image.url}}" class="card-img-top rounded-5 p-3" alt="...">
                 
                 <div class="card-body">
-                  
+                  <h6>@{{i.user}}</h6>
                   <h3 class="card-title">{{i.title}}</h3>
                   <h5 class="card-title">Category : {{i.category.name}}</h5> <br>
-                  <a href="read/{{i.title}}"><button class="btn btn-primary"><i class="fa-brands fa-readme" class="fa-brands fa-readme" style="color: #ffffff;"></i>&nbsp; View post</button></a>  &nbsp;
+                  <a href="read/{{i.id}}"><button class="btn btn-primary"><i class="fa-brands fa-readme" class="fa-brands fa-readme" style="color: #ffffff;"></i>&nbsp; View post</button></a>  &nbsp;
 
                   <a href="{{i.image.url}}" download><button class="btn btn-outline-primary"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
                     
+
+                  {% if request.user == i.user %}
                     <a href="update/{{i.title}}"><button class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
                    
-                    <a href="delete/{{i.title}}"><button name="delete" class="btn btn-outline-danger" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+                    <a href="delete/{{i.id}}"><button name="delete" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
 
-                   
+                   {% endif %}
                   
                 </div>
                 <div class="card-footer">
-                  <small class="text-body-secondary">{{i.created|timesince}} ago</small>
+                 <center><small class="text-body-secondary">{{i.created|timesince}} ago</small></center> 
                   
                 </div>
               </div>

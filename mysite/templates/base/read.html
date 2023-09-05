@@ -9,25 +9,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topic : {{objs.title}}</title>
+    
 </head>
 
 <style>
     .contents{
         margin: 5% 15%;
     }
+    .top{
+      margin-top: -1000%;
+    }
 </style>
-<div class="contents">
+<body class="">
+  
+
+<div class="contents ">
 <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
 <br>
 <br>
 <br>
 
-<div class="card mb-3">
+<div class="card mb-3 rounded-5 bg-primary">
     <img src="{{objs.image.url}}" class="card-img-top" alt="...">
+    <div class="card  rounded-5 p-2 m-5">
+      
     <div class="card-body">
+      <h5 class="btn btn-secondary">@{{objs.user}}</h5>
       <h4 class="card-title">Title : {{objs.title}}</h4>
       <h6 class="card-text">Category : {{objs.category.name}}</h6> <br>
-
+   
      
 
     
@@ -36,26 +46,27 @@
             <i class="fa-solid fa-caret-down fa-fade"></i>&nbsp;  Read post...
         </a>&nbsp;
         <a href="{{objs.image.url}}" download><button class="btn btn-outline-primary"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
-        
+        {% if request.user == objs.user %}
         <a href="{% url 'update' objs.title %}"><button class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
        
-        <a href="{% url 'delete' objs.title %}"><button name="delete" class="btn btn-outline-danger" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
-
+        <a href="{% url 'delete' objs.id %}"><button name="delete" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+        {% endif %}
       </p>
       <div class="collapse" id="collapseExample">
-        <div class="card card-body">
+        <div class="card card-body ">
         {{objs.description}}
         </div>
       </div>
       <br>
         
-          <div class="card card-body" >
+          <div class="card card-body rounded-5 border-primary-subtle" >
             {% if request.user.is_authenticated %}
             <form action="" method="post">
               {% csrf_token %}
             <div class="mb-3">
+              
               <label for="exampleFormControlTextarea1" class="form-label">Post Comments</label>
-              <input class="form-control" id="exampleFormControlTextarea1" name="cmt" ></input> <br>
+              <input class="form-control" id="exampleFormControlTextarea1" name="cmt" required> <br>
               <button type="submit" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i>&nbsp; Post</button>
             </div></form> 
             {% else %}
@@ -64,6 +75,7 @@
             <br>
             <ul>
               {% for m in msg %}
+              {% if m.post == objs.title %}
                   <li style="list-style: none;"><strong>@{{ m.user.username }}</strong> <i>{{ m.created|timesince }} ago</i> &nbsp;</li>
                   {% if request.user == m.user %} 
                     
@@ -72,16 +84,21 @@
                      
                   
                   {% endif %}
+                  
                    {{ m.message }} 
+                {% endif %}
                    <br> <br>
               {% empty %}
                  <center><li style="list-style: none;"><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> &nbsp; No comments yet</li></center> 
+                 
               {% endfor %}
+              
           </ul>
           </div>
        
 
       
+      <br>
       
       
       <p class="card-text"><small class="text-body-secondary">Posted on {{objs.created}}</small></p>
@@ -92,7 +109,7 @@
 
 </div>
 
-
+</body>
 
 
 {% endblock %}
