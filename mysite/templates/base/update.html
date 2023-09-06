@@ -19,13 +19,32 @@
    
 </style>
 <div class="forms">
-    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
-    <center><form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form></center>
+    <button class="btn bg-info text-white bg-opacity-25  rounded-4 " id="back-button"><i class="fa-solid fa-angle-left"></i> Go Back</button>
+   <br>
+   <br>
+   <br>
+           <center><div class="card bg-info text-white bg-opacity-25  rounded-4 ">
+                <div class="card-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <h4>Update <span style="color: rgb(34, 255, 255);">" {{ title.title }} " </span></h4> <br>
+                        <br>
+
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <br>
+                        <button type="submit" class="btn bg-info text-white bg-opacity-25  rounded-4 "><i class="fa-solid fa-file-pen"></i> &nbsp; Update</button>
+                    </form>
+                </div>
+              </div></center> 
+        
 </div>
+
+
+<script>
+    document.getElementById("back-button").addEventListener("click", function() {
+        window.history.back();
+    });
+</script>
 
 
 {% endblock %}

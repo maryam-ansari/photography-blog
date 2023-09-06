@@ -11,19 +11,21 @@
 <style>
     body{
         margin: 5% 30%;
+        background-color: rgb(0, 64, 94);
+        color: white;
     }
 </style>
 <body>
-    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
+    <button class="btn bg-info text-white bg-opacity-25  rounded-4 p-3" id="back-button"><i class="fa-solid fa-angle-left"></i> Go Back</button>
     <br>
     <br>
     <br>
-    <div class="card mb-3">
-        <img src="{{obj.image.url}}" class="card-img-top" alt="...">
+    <div class="card mb-3 bg-info text-white bg-opacity-25  rounded-5 ">
+        <img src="{{obj.image.url}}" class="card-img-top p-3 rounded-5" alt="...">
         <div class="card-body">
             <center><form action="" method="post">
                 {% csrf_token %} 
-                <h4>Are Your sure, you want to delete " {{obj.title}} " post which is under category : {{obj.category.name}} ?</h4>
+                <h4>Are Your sure, you want to delete <span style="color: rgb(34, 255, 255);">" {{obj.title}} "</span>  post which is under category : <span style="color: rgb(34, 255, 255);">{{obj.category.name}}</span>  ?</h4>
                 <br>
                 <p><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> &nbsp; Warning : Once deleted from the database, it can't be retrived</p>
                 <br>
@@ -31,4 +33,12 @@
             </form></center></div>
       </div>
 </body>
+
+
+<script>
+    document.getElementById("back-button").addEventListener("click", function() {
+        window.history.back();
+    });
+</script>
+
 </html>

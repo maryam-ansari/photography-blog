@@ -29,45 +29,48 @@
 <br>
 <br>
 
-<div class="card mb-3 rounded-4 bg-primary">
+<div class="card mb-3 rounded-4 bg-info text-white bg-opacity-25 rounded-4 ">
     <img src="{{objs.image.url}}" class="card-img-top" alt="...">
-    <div class="card  rounded-3 p-2 m-5">
+    <div class="card  rounded-3 p-2 m-3 bg-transparent text-white bg-opacity-50 border border-info rounded-4">
       
-    <div class="card-body">
+    <div class="card-body ">
       <a href="{% url 'profile' objs.user.id %}" style="text-decoration: none;"><h5 class="btn btn-secondary">@{{objs.user}}</h5></a>
+      <br>
+      <br>
       <h4 class="card-title">Title : {{objs.title}}</h4>
-      <h6 class="card-text">Category : {{objs.category.name}}</h6> <br>
+      <h6 class="card-text">Category : {{objs.category.name}}</h6> 
+      <p class="card-text" style="color: rgb(212, 212, 212);"><small class="">Posted on {{objs.created}}</small></p>
    
      
 
     
       <p class="d-inline-flex gap-1">
-        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn bg-info text-white bg-opacity-50  rounded-4" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             <i class="fa-solid fa-caret-down fa-fade"></i>&nbsp;  Read post...
         </a>&nbsp;
-        <a href="{{objs.image.url}}" download><button class="btn btn-outline-primary"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
+        <a href="{{objs.image.url}}" download><button class="btn text-white text-opacity-75"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
         {% if request.user == objs.user %}
-        <a href="{% url 'update' objs.title %}"><button class="btn btn-outline-secondary"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
+        <a href="{% url 'update' objs.title %}"><button class="btn text-white text-opacity-75"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
        
-        <a href="{% url 'delete' objs.id %}"><button name="delete" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+        <a href="{% url 'delete' objs.id %}"><button name="delete" class="btn text-white text-opacity-75"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
         {% endif %}
       </p>
       <div class="collapse" id="collapseExample">
-        <div class="card card-body ">
+        <div class="card card-body bg-info text-white bg-opacity-25  rounded-4 ">
         {{objs.description}}
         </div>
       </div>
       <br>
         
-          <div class="card card-body rounded-2 border-primary" >
+          <div class="card card-body rounded-2 bg-transparent text-white bg-opacity-50 border border-info rounded-4 " >
             {% if request.user.is_authenticated %}
             <form action="" method="post">
               {% csrf_token %}
-            <div class="mb-3">
+            <div class="mb-3" data-bs-theme="dark">
               
               <label for="exampleFormControlTextarea1" class="form-label">Post Comments</label>
-              <input class="form-control" id="exampleFormControlTextarea1" name="cmt" required> <br>
-              <button type="submit" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i>&nbsp; Post</button>
+              <input class="form-control bg-info text-white bg-opacity-25  rounded-4 border border-0 p-3" id="exampleFormControlTextarea1" placeholder="post your comments"  name="cmt" required> <br>
+              <button type="submit" class="btn bg-info text-white bg-opacity-25  rounded-4 "><i class="fa-solid fa-paper-plane"></i>&nbsp; Post</button>
             </div></form> 
             {% else %}
             <p><a href="{% url 'home' %}" class="btn btn-outline-primary">Login</a> to add comments</p>
@@ -76,11 +79,11 @@
             <ul>
               {% for m in msg %}
               {% if m.post == objs.title %}
-                  <li style="list-style: none;"><a href="{% url 'profile' m.user.id %}" style="text-decoration: none;">  @{{ m.user.username }} </a> <i>{{ m.created|timesince }} ago</i> &nbsp;</li>
+                  <li style="list-style: none;"><a href="{% url 'profile' m.user.id %}" style="text-decoration: none; color: cyan;">  @{{ m.user.username }} </a> &nbsp; <i style="color: rgb(199, 199, 199);">{{ m.created|timesince }} ago</i> &nbsp;</li>
                   {% if request.user == m.user %} 
                     
                     
-                   <a href="delete_message/{{m.id}}"><button class="btn" type="submit" name="dele"><i class="fa-solid fa-trash-can" style="color: #ff0000;"></i></button></a> 
+                   <a href="delete_message/{{m.id}}"><button class="btn" type="submit" name="dele"><i class="fa-solid fa-trash-can" style="color: #e2e2e2;"></i></button></a> 
                      
                   
                   {% endif %}
@@ -100,8 +103,7 @@
       
       <br>
       
-      
-      <p class="card-text"><small class="text-body-secondary">Posted on {{objs.created}}</small></p>
+    
     </div>
   </div>
    
