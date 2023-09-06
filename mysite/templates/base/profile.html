@@ -1,0 +1,90 @@
+{% include 'base/nav.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile : {{user.username}}</title>
+   <style>
+    .cont{
+        margin: 5% 10%;
+    }
+   </style>
+</head>
+<body>
+
+    <div class="cont">
+        <a href="{% url 'home' %}"><button class="btn bg-info text-white bg-opacity-25 rounded-4"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
+        <br>
+        <br>
+        <div class="card text-center bg-info text-white bg-opacity-25 rounded-5">
+           
+            <div class="card-body m-3">
+              <h2 class="card-title"><span class=" text-info">{{user.username}}'s </span>profile page</h2> <br>
+              <p class="card-text">Access your profile for any changes in your recent post </p>
+              <br>
+            
+              <h5>{{user.username}}'s recent posts</h5>
+              <br>
+              <br>
+              <div class="row row-cols-1 row-cols-md-3 g-4" >
+            
+                {% for i in photo %}
+                {% if user.id == i.user.id %}
+                    
+                <div class="col">
+                  <div class="card h-100 bg-info text-white bg-opacity-10 border border-info rounded-5">
+                    <img src="{{i.image.url}}" class="card-img-top rounded-5 p-3 " style="height: 50vh;" alt="...">
+                    
+                    <div class="card-body">
+                      
+                      <h4 class="card-title">Title : {{i.title}}</h4>
+                      <h6 class="card-title">Category : {{i.category.name}}</h6> <br>
+                      <a href="read/{{i.id}}"><button class="btn bg-info text-white bg-opacity-50 rounded-4"><i class="fa-brands fa-readme" class="fa-brands fa-readme" style="color: #ffffff;"></i>&nbsp; View post</button></a>  &nbsp;
+    
+                      <a href="{{i.image.url}}" download><button type="button" id="liveToastBtn" class="btn text-white text-opacity-75 " ><i class="fa-solid fa-download"></i></button></a>  &nbsp;
+                     
+                     
+    
+                      <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast bg-info text-white bg-opacity-25 border border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                          <div class="toast-header">
+                            <strong class="me-auto">Downloaded</strong>
+                           
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                          <div class="toast-body">
+                            Your download is successfull
+                          </div>
+                        </div>
+                      </div>
+    
+    
+                      {% if request.user == i.user %}
+                        <a href="update/{{i.title}}"><button class="btn text-white text-opacity-75"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
+                       
+                        <a href="delete/{{i.id}}"><button name="delete" class="btn text-white text-opacity-75"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+    
+                       {% endif %}
+                      
+                    </div>
+                    <div class="card-footer">
+                     <center><small class="text-white">{{i.created|timesince}} ago</small></center> 
+                      
+                    </div>
+                  </div>
+                </div>
+                    
+                {% endif %}
+               
+            
+            {% endfor %}
+            
+          </div>
+
+
+
+    </div>
+    
+</body>
+</html>

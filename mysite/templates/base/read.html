@@ -24,7 +24,7 @@
   
 
 <div class="contents ">
-<a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
+<a href="{% url 'home' %}"><button class="btn bg-info text-white bg-opacity-25 rounded-4"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> 
 <br>
 <br>
 <br>
@@ -34,7 +34,7 @@
     <div class="card  rounded-3 p-2 m-5">
       
     <div class="card-body">
-      <h5 class="btn btn-secondary">@{{objs.user}}</h5>
+      <a href="{% url 'profile' objs.user.id %}" style="text-decoration: none;"><h5 class="btn btn-secondary">@{{objs.user}}</h5></a>
       <h4 class="card-title">Title : {{objs.title}}</h4>
       <h6 class="card-text">Category : {{objs.category.name}}</h6> <br>
    
@@ -76,7 +76,7 @@
             <ul>
               {% for m in msg %}
               {% if m.post == objs.title %}
-                  <li style="list-style: none;"><strong>@{{ m.user.username }}</strong> <i>{{ m.created|timesince }} ago</i> &nbsp;</li>
+                  <li style="list-style: none;"><a href="{% url 'profile' m.user.id %}" style="text-decoration: none;">  @{{ m.user.username }} </a> <i>{{ m.created|timesince }} ago</i> &nbsp;</li>
                   {% if request.user == m.user %} 
                     
                     

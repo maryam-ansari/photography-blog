@@ -47,7 +47,15 @@ def home(request):
 
     return render(request, 'base/home.html',context)
     
-   
+def profile(request,id):
+    user = User.objects.get(id=id)
+    photo = Photo.objects.all().order_by('-created')
+    print('user id : ',user.id)
+    context = {
+        'user' : user,
+        'photo' : photo
+    }
+    return render(request, 'base/profile.html',context)
 
 
 def logoutUser(request):
@@ -158,6 +166,11 @@ def read(request,id):
 
 def delete_message(request,id):
     mem = Comments.objects.get(id=id)
-    #print('id :',mem)
+    print('id :',mem)
     mem.delete()
     return redirect('home')
+
+
+
+def about(request):
+    return render(request,'base/about.html')

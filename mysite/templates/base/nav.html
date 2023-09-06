@@ -12,10 +12,16 @@
     <script src="https://kit.fontawesome.com/6a72a8e32d.js" crossorigin="anonymous"></script>
     
 </head>
+<style>
+   body{
+        background-color: rgb(0, 64, 94);
+        color: white;
+      }
+</style>
 <body>
     <nav class="navbar navbar-expand-lg bg-info bg-opacity-25 m-3 p-3 sticky-top rounded-4" data-bs-theme="dark">
         <div class="container-fluid text-white">
-          <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-camera-retro"></i> Photography Blog</a>
+          <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-regular fa-images"></i> Photography Blog</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,19 +34,21 @@
                 <a class="nav-link" href="{% url 'upload' %}"><i class="fa-solid fa-upload"></i>&nbsp; Upload</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="#" ><i class="fa-solid fa-info"></i>&nbsp; Help</a>
+                <a class="nav-link " href="{% url 'about' %}" ><i class="fa-solid fa-info"></i>&nbsp; About</a>
               </li>
             </ul>
-            {% if request.user.is_authenticated %}
-            <h6 class="text-info">@{{user.username}}</h6> &nbsp; &nbsp;
+            {% if request.user.is_authenticated and request.user == user %}
+            
+        <a href="{% url 'profile' user.id %}" style="text-decoration: none;"><h6 class="text-info">@{{user.username}}</h6></a> &nbsp; &nbsp;
+           
+
             {% endif %}
-            <form class="d-flex" role="search" method="GET" action="">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            &nbsp;&nbsp;
+            
+            &nbsp;
             {% if request.user.is_authenticated %}
             <a href="{% url 'logout' %}"><button class="btn btn-danger rounded-4"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout</button></a> 
+            {% else %}
+            <i class="fa-solid fa-user-slash" style="color: #ffffff;"></i>
             {% endif %}
             </div>
         </div>

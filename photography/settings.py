@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'mysite',
 ]
 
+#AUTH_USER_MODEL = 'mysite.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

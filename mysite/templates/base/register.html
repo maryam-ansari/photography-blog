@@ -13,9 +13,9 @@
     }
 </style>
 <div class="cont">
-    <div class="card">
+    <div class="card bg-info text-white bg-opacity-25 rounded-4">
         <div class="card-body">
-    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
+    <a href="{% url 'home' %}"><button class="btn bg-info text-white bg-opacity-50 rounded-4"><i class="fa-solid fa-angle-left"></i>&nbsp; Go Back</button></a> <br> <br>
    <br>
    <br>
     <form action="" method="post">
@@ -33,9 +33,9 @@
         {% endif %}
         <br>
        {{form.as_p}} <br>
-       <button class="btn btn-primary">Create new account</button>
+       <button class="btn bg-info text-white bg-opacity-50 rounded-4"> <i class="fa-solid fa-user-plus"></i>&nbsp; Create new account</button>
        <br> &nbsp; <p>Already have an account ?</p> 
-       <a href="{% url 'home' %}" class="btn btn-outline-primary">Login</a>
+       <a href="{% url 'home' %}" class="btn bg-info text-white bg-opacity-50 rounded-4"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Login</a>
     </form>
 </div>
 </div>

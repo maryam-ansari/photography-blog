@@ -1,10 +1,23 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import CASCADE
 
+
 # Create your models here.
+"""
+class User(AbstractUser):
+    name = models.CharField(max_length=100,null=True)
+    uname = models.CharField(max_length=100,null=True)
+    password = models.CharField(max_length=100,null=True)
+    avatar = models.ImageField(null=True,default="avatar.png")
 
+    USERNAME_FIELD = 'uname'
+    REQUIRED_FIELDS = []
 
+    def __str__(self):
+        return self.name
+"""
 class Category(models.Model):
     
     name = models.CharField(max_length=200,null=True,blank=False)
