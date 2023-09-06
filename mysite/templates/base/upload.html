@@ -10,30 +10,39 @@
 
 <style>
     body{
+        background-color: rgb(0, 64, 94);
+        color: white;
     }
     .forms{
         margin: 5% 20%;
     }
+    form{
+        color: white;
+    }
 
+  
     #drop-area{
 width: 400px;
 height: 300px;
 padding: 15px;
-background-color: white;
+background-color: rgb(27, 96, 128);
 text-align: center;
-border-radius: 20px;
+border-radius: 30px;
 cursor: pointer;
 }
 img{
 width: 200px;
+margin: 1%;
+border-radius: 50px;
 }
 
 #img-view{
 width: 100%;
 height: 100%;
 border-radius: 30px;
+color: white;
 border: 2px dashed dodgerblue;
-background-color: rgb(255, 255, 255);
+background-color: rgb(27, 96, 128);
 background-position:center;
 background-size: cover;
 }
@@ -41,36 +50,38 @@ background-size: cover;
 #img-view span{
 display: block;
 font-size: 15px;
-color: #000000;
+color: #ffffff;
 margin-top: 15px;
 }
 </style>
 </head>
 <body>
 <div class="forms">
-    <a href="{% url 'home' %}"><button class="btn btn-light"><i class="fa-solid fa-angle-left"></i> Go Back</button></a> <br> <br>
-    <form action="" method="post" enctype="multipart/form-data">
+    <a href="{% url 'home' %}"><button class="btn bg-info text-white bg-opacity-25 rounded-4" ><i class="fa-solid fa-angle-left"></i>&nbsp; Go Back</button></a> <br> <br>
+     <center><h3>Upload Section</h3></center> 
+     <br>
+    <form action="" method="post" data-bs-theme="dark" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="">Select any Category</label> <br>
+        <label for="" >Select any Category</label> <br>
         <br>
-    <select class="form-select" aria-label="Default select example" name="category">
+    <select class="form-select bg-info text-white bg-opacity-25 border border-0 rounded-4" aria-label="Default select example" name="category">
         <option value="none">Select a Category (or) Enter new one below</option>
         {% for i in categories %}
-        <option value="{{ i.id }}">{{ i.name }}</option>
+        <option value="{{ i.id }}" style="background-color: rgb(27, 96, 128);">{{ i.name }}</option>
         {% endfor %}
       </select>
       <br>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">New Category</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" name="category_new" placeholder="Enter a new Category">
+        <input type="text" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4"  id="exampleInputPassword1" name="category_new" placeholder="Enter a new Category">
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Title</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" name="title" placeholder="Enter a tile for your post">
+        <input type="text" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleInputPassword1" name="title" placeholder="Enter a tile for your post">
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" required placeholder="Write Something about your post"></textarea>
+        <textarea class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleFormControlTextarea1" rows="3" name="description" required placeholder="Write Something about your post"></textarea>
       </div>
       <label for="exampleFormControlTextarea1" class="form-label">Upload Image</label>
       <div class="mb-3">
@@ -85,7 +96,7 @@ margin-top: 15px;
         </label>
       </div>
       <br>
-      <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-upload"></i>  Upload Details</button>
+      <button type="submit" class="btn bg-info text-white bg-opacity-50 rounded-4 p-2">&nbsp;<i class="fa-solid fa-file-arrow-up"></i> &nbsp;  Upload Post </button>
     </form>
 </div>
 
