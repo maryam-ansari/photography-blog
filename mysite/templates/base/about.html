@@ -1,0 +1,76 @@
+{% include 'base/nav.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<style>
+    .cont{
+        margin: 5% 10%;
+    }
+    @media only screen and (max-width:600px) {
+      .cont{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .cont{
+        margin: 2% 2%;
+    }
+    }
+</style>
+<body>
+    <div class="cont">
+       
+        <a href="{% url 'home' %}"><button class="btn bg-info text-white bg-opacity-25 rounded-4" ><i class="fa-solid fa-angle-left"></i>&nbsp; Go Back</button></a> <br> <br>
+        <div class="card text-center bg-info text-white bg-opacity-25  rounded-4">
+            <div class="card-header">
+              Photography Blog
+            </div>
+            <div class="card-body p-3">
+              <h5 class="card-title">About this blog website</h5> <br>
+              <p class="card-text">This website is small project where registered user can <br>
+            upload their photos asa ablog post where it can be viewed by other user's who can also make a comment under certain posts. <br><br>
+        This website is made using Django framework with Bootstrap elements for theme. <br> <br>
+    You can also watch my demonstration of this project along with the conding part..</p> 
+              
+            </div>
+            <div class="card-footer text-body-secondary p-3">
+                <a href="https://youtu.be/PHSbDb6xih0?feature=shared" target="_blank" class="btn btn-danger rounded-4"><i class="fa-brands fa-youtube"></i> &nbsp; Watch on YouTube</a>
+            </div>
+          </div>
+
+
+          <br>
+         
+
+
+        <div class="card text-center bg-info text-white bg-opacity-25  rounded-4">
+            <div class="card-header">
+             Developer info
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Murali Dharan S</h5> <br>
+              <a href="https://muralidharan.netlify.app" target="_blank" class="btn bg-info text-white bg-opacity-25  rounded-4" ><i class="fa-solid fa-arrow-pointer"></i>&nbsp; Website</a> &nbsp;
+              <a href="https://github.com/murali2601/photography_blog_page" target="_blank" class="btn bg-info text-white bg-opacity-25  rounded-4" ><i class="fa-brands fa-github"></i>&nbsp; GitHub</a> &nbsp;
+              <a href="https://www.linkedin.com/in/murali-dharan-s-808135217/"  target="_blank" class="btn bg-info text-white bg-opacity-25  rounded-4" ><i class="fa-brands fa-linkedin-in"></i>&nbsp; LinkedIn</a>
+              <a href="https://youtube.com/@murali2601?feature=shared" target="_blank" class="btn bg-info text-white bg-opacity-25  rounded-4" ><i class="fa-brands fa-youtube"></i>&nbsp; YouTube</a>
+              
+            </div>
+           
+          </div>
+
+
+
+
+
+    </div>
+</body>
+</html>
+
+
+{% endblock %}

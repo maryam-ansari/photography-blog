@@ -16,6 +16,16 @@
     .contents{
         margin: 5% 15%;
     }
+    @media only screen and (max-width:600px) {
+      .contents{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .contents{
+        margin: 2% 2%;
+    }
+    }
     .top{
       margin-top: -1000%;
     }
@@ -34,7 +44,7 @@
     <div class="card  rounded-3 p-2 m-3 bg-transparent text-white bg-opacity-50 border border-info rounded-4">
       
     <div class="card-body ">
-      <a href="{% url 'profile' objs.user.id %}" style="text-decoration: none;"><h5 class="btn btn-secondary">@{{objs.user}}</h5></a>
+      <a href="{% url 'profile' objs.user.id %}" style="text-decoration: none;"><h5 class="btn bg-info text-white bg-opacity-50  rounded-4">@{{objs.user}}</h5></a>
       <br>
       <br>
       <h4 class="card-title">Title : {{objs.title}}</h4>

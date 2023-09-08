@@ -19,6 +19,16 @@
         .containers{
             margin: 0% 10%;
         }
+        @media only screen and (max-width:600px) {
+      .containers{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .containers{
+        margin: 2% 2%;
+    }
+    }
     </style>
 </head>
 {% endblock %}
@@ -74,16 +84,16 @@
           {% csrf_token %}
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label"><i class="fa-solid fa-user"></i>&nbsp; User name</label>
-            <input type="text" name="username" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="text" name="username" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleInputEmail1" aria-describedby="emailHelp" required>
             
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label"><i class="fa-solid fa-key"></i>&nbsp; Password</label>
-            <input type="password" name="password" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleInputPassword1">
+            <input type="password" name="password" class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleInputPassword1" required>
           </div>
           <br>
  
-          <button type="submit" value="Login" class="btn bg-info text-white bg-opacity-25 border border-0"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Login</button> <br>
+          <button type="submit" value="Login" class="btn bg-info text-white bg-opacity-25 border border-0 rounded-4"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Login</button> <br>
           <br>
           <p>Don't have an account ? <a href="{% url 'register' %}" style="color: white;">Create new account</a></p>
         </form>

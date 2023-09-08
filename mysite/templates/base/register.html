@@ -11,6 +11,16 @@
     .cont{
         margin: 5% 10%;
     }
+    @media only screen and (max-width:600px) {
+      .cont{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .cont{
+        margin: 2% 2%;
+    }
+    }
 </style>
 <div class="cont">
     <div class="card bg-info text-white bg-opacity-25 rounded-4">
@@ -32,7 +42,9 @@
         </ul>
         {% endif %}
         <br>
-       {{form.as_p}} <br>
+      {{form.as_p}}
+      
+      
        <button class="btn bg-info text-white bg-opacity-50 rounded-4"> <i class="fa-solid fa-user-plus"></i>&nbsp; Create new account</button>
        <br> &nbsp; <p>Already have an account ?</p> 
        <a href="{% url 'home' %}" class="btn bg-info text-white bg-opacity-50 rounded-4"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Login</a>

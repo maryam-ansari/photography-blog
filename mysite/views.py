@@ -51,6 +51,12 @@ def profile(request,id):
     user = User.objects.get(id=id)
     photo = Photo.objects.all().order_by('-created')
     print('user id : ',user.id)
+
+    #account deletion
+    if request.method == 'POST':
+        user.delete()
+        return redirect('home')
+
     context = {
         'user' : user,
         'photo' : photo
@@ -137,7 +143,7 @@ def delete(request,id):
     
     
     if request.method == 'POST':
-        print('id : ',photo.id)
+        #print('id : ',photo.id)
         photo.delete()
         return redirect('home')
     
@@ -159,7 +165,7 @@ def read(request,id):
             post=photo.title,
             message=request.POST.get('cmt')
             )
-        #print('msg_post : ',msg.post)
+       
     context = {'objs' : photo,'msg' : msg}
     
     return render(request, 'base/read.html',context)

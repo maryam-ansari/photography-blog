@@ -9,6 +9,16 @@
     .cont{
         margin: 5% 10%;
     }
+    @media only screen and (max-width:600px) {
+      .cont{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .cont{
+        margin: 2% 2%;
+    }
+    }
    </style>
 </head>
 <body>
@@ -20,12 +30,46 @@
         <div class="card text-center bg-info text-white bg-opacity-25 rounded-5">
            
             <div class="card-body m-3">
-              <h2 class="card-title"><span class=" text-info">{{user.username}}'s </span>profile page</h2> <br>
+              <div class="border border-info p-3 rounded-5">
+              <h2 class="card-title"><span class=" text-info">{{user.username}}'s </span>profile page</h2>
+              {% if request.user.id == user.id %}
               <p class="card-text">Access your profile for any changes in your recent post </p>
-              <br>
-            
+          <!-- Button trigger modal -->
+          
+<button type="button" class="btn bg-danger bg-opacity-75 rounded-4 p-3 text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  <i class="fa-solid fa-user-large-slash"></i> &nbsp; Delete Account
+</button>
+{% else %}
+<p>This is another user's profile - You can't make any changes here</p>
+{% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content bg-secondary rounded-4 text-white">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fa-solid fa-person-walking-arrow-right"></i> &nbsp;  Permanent Account Deletion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <i class="fa-solid fa-triangle-exclamation" style="color: #ff0004;"></i>&nbsp;  Warning ! :   Your post along with the associated content's will be deleted ! and It cannot be recovered
+      </div>
+      <form action="" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit"><i class="fa-solid fa-user-large-slash"></i> &nbsp; Delete my Account</button>
+      </form>
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+            <br> <br>
               <h5>{{user.username}}'s recent posts</h5>
-              <br>
+           
+            </div>
               <br>
               <div class="row row-cols-1 row-cols-md-3 g-4" >
             
