@@ -11,4 +11,3 @@ Demonstration video (YouTube) : https://youtu.be/PHSbDb6xih0?feature=shared
 Attached Screenshots :
 
 
-![Screenshot (316)](https://github.com/murali2601/photography_blog_page/assets/89293722/1e41be2d-366f-4a1f-8e41-32ea6855add6)
