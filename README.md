@@ -11,5 +11,5 @@ Demonstration video (YouTube) : https://youtu.be/PHSbDb6xih0?feature=shared
 Attached Screenshots :
 
 
+![Screenshot (316)](https://github.com/murali2601/photography_blog_page/assets/89293722/426224bb-f4bb-4f63-972b-bea66d64b9e1)
 
-![Screenshot (316)](https://github.com/murali2601/photography_blog_page/assets/89293722/234ac4d4-b63c-4ca8-b3cb-410cf1d8778e)
