@@ -1,4 +1,4 @@
-# Django-Photo-Blog
+# Photography Blog
 
 Requirements:
 
@@ -18,4 +18,3 @@ Run:
 You are ready to browse the features of web applications
 
 In order to skip authentication part you can create a superuser and login in your django localhost/admin
-# photography-blog
