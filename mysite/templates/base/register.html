@@ -1,0 +1,62 @@
+{% load static %}
+{% include 'base/nav.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+<style>
+    .cont{
+        margin: 5% 10%;
+    }
+    @media only screen and (max-width:600px) {
+      .cont{
+        margin: 1% 5%;
+    }
+    }
+    @media only screen and (max-width : 810px) and (orientation : landscape){
+      .cont{
+        margin: 2% 2%;
+    }
+    }
+</style>
+<div class="cont">
+    <div class="card bg-info text-white bg-opacity-25 rounded-4">
+        <div class="card-body">
+            <button class="btn btn-light" id="back-button"><i class="fa-solid fa-angle-left"></i> Go Back</button>
+   <br>
+   <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+           <center><h3><i class="fa-solid fa-triangle-exclamation fa-shake" style="color: #ff0000;"></i> {{ message }}</h3></center> 
+            
+            {% endfor %}
+
+         
+            
+        </ul>
+        {% endif %}
+        <br>
+      {{form.as_p}}
+      
+      
+       <button class="btn bg-info text-white bg-opacity-50 rounded-4"> <i class="fa-solid fa-user-plus"></i>&nbsp; Create new account</button>
+       <br> &nbsp; <p>Already have an account ?</p> 
+       <a href="{% url 'home' %}" class="btn bg-info text-white bg-opacity-50 rounded-4"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; Login</a>
+    </form>
+</div>
+</div>
+</div>
+
+<script>
+    document.getElementById("back-button").addEventListener("click", function() {
+        window.history.back();
+    });
+</script>
+
+{% endblock %}
