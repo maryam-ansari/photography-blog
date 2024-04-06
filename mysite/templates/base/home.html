@@ -209,7 +209,14 @@
                 <br> <a href="{% url 'upload' %}"><button class="btn bg-info text-white bg-opacity-50"><i class="fa-solid fa-square-plus fa-beat-fade"></i>&nbsp; Create a post</button></a> </h3></center> 
               </div>
             </div> 
-            
+
+            <div class="card bg-info text-white bg-opacity-25 p-3 rounded-5"  style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Seems like you are the first one to blog</h5> <br>
+                <p class="card-text">Start a post by clicking on &nbsp; <i class="fa-solid fa-upload fa-2xs" style="color: #dadada;"></i> &nbsp; MyUpload button</p>
+                <br> <a href="{% url 'upload' %}"><button class="btn bg-info text-white bg-opacity-50"><i class="fa-solid fa-square-plus fa-beat-fade"></i>&nbsp; Create a post</button></a> </h3></center>
+              </div>
+            </div>
             
             {% endfor %}
             

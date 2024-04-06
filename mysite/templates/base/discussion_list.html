@@ -1,0 +1,14 @@
+{% include 'base/nav.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>Discussion List</h1>
+<ul>
+  {% for discussion in discussions %}
+    <li><a href="{% url 'discussion_detail' discussion.id %}">{{ discussion.title }}</a></li>
+  {% endfor %}
+</ul>
+<a href="{% url 'discussion_create' %}">Create New Discussion</a>
+
+{% endblock %}

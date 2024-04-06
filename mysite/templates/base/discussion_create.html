@@ -1,0 +1,22 @@
+{% include 'base/nav.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>{{ discussion.title }}</h1>
+<p>{{ discussion.created_at }}</p>
+
+<h2>Comments</h2>
+<ul>
+  {% for comment in comments %}
+    <li>{{ comment.text }}</li>
+  {% endfor %}
+</ul>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add Comment</button>
+</form>
+
+{% endblock %}

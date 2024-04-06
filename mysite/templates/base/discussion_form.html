@@ -1,0 +1,17 @@
+{% include 'base/nav.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>Create New Discussion</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+    <textarea class="form-control bg-info text-white bg-opacity-25 border border-0 rounded-4" id="exampleFormControlTextarea1" rows="3" name="description" required placeholder="Write Something about your post"></textarea>
+    </div>
+  <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

@@ -8,6 +8,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+#ADDED
+from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Discussion, Comment
+from .forms import DiscussionForm, CommentForm
+
 # Create your views here.
 
 def nav(request):
@@ -166,7 +172,7 @@ def read(request,id):
             message=request.POST.get('cmt')
             )
        
-    context = {'objs' : photo,'msg' : msg}
+    context = {'objs': photo,'msg': msg}
     
     return render(request, 'base/read.html',context)
 
@@ -180,3 +186,82 @@ def delete_message(request,id):
 
 def about(request):
     return render(request,'base/about.html')
+    
+
+# ADDED
+
+def discussion_list(request):
+    discussions = Discussion.objects.all()
+    if discussions is None:
+        discussions = []
+    return render(request, 'base/discussion_list.html', {'discussions': discussions})
+
+def discussion_detail(request, id):
+    discussion = Discussion.objects.get(id=id)
+    msg = Comment.objects.all().order_by('-created')
+
+    if request.method == 'POST':
+        add = Comment.objects.create(
+            user=request.user,
+            post=discussion.title,
+            text=request.POST.get('cmt')
+        )
+
+    context = {'objs': discussion, 'msg': msg}
+    return render(request, 'base/discussion_detail.html', context)
+
+
+@login_required
+def discussion_create(request):
+    if request.method == 'POST':
+        form = DiscussionForm(request.POST)
+        if form.is_valid():
+            discussion = form.save(commit=False)
+            discussion.user_id = request.user.id
+            discussion.save()
+            return redirect('discussion_list')
+    else:
+        form = DiscussionForm()
+
+    return render(request, 'base/discussion_form.html', {'form': form})
+
+
+@login_required(login_url='login')
+def discussion_delete(request, id):
+    discussion = Discussion.objects.get(id=id)
+
+    if request.method == 'POST':
+        # print('id : ',photo.id)
+        discussion.delete()
+        return redirect('home')
+
+    context = {'obj': discussion}
+
+    return render(request, 'base/delete.html', context)
+
+
+def delete_discussion_message(request, discussion_id, id):
+    msg = Comment.objects.get(id=id)
+    print('id :',msg)
+    msg.delete()
+
+    discussion = Discussion.objects.get(id=discussion_id)
+    msg = Comment.objects.all().order_by('-created')
+
+    context = {'objs': discussion, 'msg': msg}
+    return render(request, 'base/discussion_detail.html', context)
+
+@login_required(login_url='login')
+def discussion_update(request, t):
+    discussion = Discussion.objects.get(title=t)
+
+    form = DiscussionForm(instance=discussion)
+
+    if request.method == 'POST':
+        form = DiscussionForm(request.POST, instance=discussion)
+        if form.is_valid():
+            form.save()
+            return redirect('discussion_list')
+
+    context = {'form': form, 'title': discussion}
+    return render(request, 'base/discussion_update.html', context)
