@@ -184,8 +184,8 @@ def delete_message(request,id):
 
 
 
-def about(request):
-    return render(request,'base/about.html')
+def about(req):
+    return render(req,'base/about.html')
     
 
 # ADDED
@@ -218,6 +218,7 @@ def discussion_create(request):
         if form.is_valid():
             discussion = form.save(commit=False)
             discussion.user_id = request.user.id
+            discussion.description = request.POST.get('description')
             discussion.save()
             return redirect('discussion_list')
     else:
@@ -233,7 +234,7 @@ def discussion_delete(request, id):
     if request.method == 'POST':
         # print('id : ',photo.id)
         discussion.delete()
-        return redirect('home')
+        return redirect('discussion_list')
 
     context = {'obj': discussion}
 
@@ -245,11 +246,7 @@ def delete_discussion_message(request, discussion_id, id):
     print('id :',msg)
     msg.delete()
 
-    discussion = Discussion.objects.get(id=discussion_id)
-    msg = Comment.objects.all().order_by('-created')
-
-    context = {'objs': discussion, 'msg': msg}
-    return render(request, 'base/discussion_detail.html', context)
+    return redirect('discussion_detail', id=discussion_id)
 
 @login_required(login_url='login')
 def discussion_update(request, t):
