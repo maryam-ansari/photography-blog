@@ -65,9 +65,8 @@ class Discussion(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
-    #post = models.ForeignKey(Photo,on_delete=models.SET_NULL,null=True)
-    post = models.CharField(max_length=100,null=True,blank=False)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+    # post = models.CharField(max_length=100,null=True,blank=False)
     text = models.TextField(max_length=200,null=True,blank=False)
     created = models.DateTimeField(auto_now_add=True,auto_created=True)
 

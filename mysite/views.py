@@ -130,12 +130,18 @@ def upload(request):
 @login_required(login_url='login')
 def update(request,t):
     photo = Photo.objects.get(title = t)
-    
+    msg = Comments.objects.all().order_by('-created')
+
     form = PhotoForm(instance = photo)
 
     if request.method == 'POST':
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
+            for m in msg:
+                if m.post == t:
+                    print("HURRAY!!! I'm HERE")
+                    m.post = request.POST.get('title')
+                    m.save()
             form.save()
             return redirect('home')
     
@@ -203,7 +209,7 @@ def discussion_detail(request, id):
     if request.method == 'POST':
         add = Comment.objects.create(
             user=request.user,
-            post=discussion.title,
+            discussion=discussion,
             text=request.POST.get('cmt')
         )
 
@@ -240,17 +246,9 @@ def discussion_delete(request, id):
 
     return render(request, 'base/delete.html', context)
 
-
-def delete_discussion_message(request, discussion_id, id):
-    msg = Comment.objects.get(id=id)
-    print('id :',msg)
-    msg.delete()
-
-    return redirect('discussion_detail', id=discussion_id)
-
 @login_required(login_url='login')
-def discussion_update(request, t):
-    discussion = Discussion.objects.get(title=t)
+def discussion_update(request, id):
+    discussion = Discussion.objects.get(id=id)
 
     form = DiscussionForm(instance=discussion)
 
@@ -268,3 +266,10 @@ def discussion_update(request, t):
 
     context = {'form': form, 'discussion': discussion}
     return render(request, 'base/discussion_update.html', context)
+
+def delete_discussion_message(request, discussion_id, id):
+    msg = Comment.objects.get(id=id)
+    print('id :',msg)
+    msg.delete()
+
+    return redirect('discussion_detail', id=discussion_id)

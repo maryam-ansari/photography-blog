@@ -55,8 +55,16 @@
         </a>&nbsp;
         <a href="{{objs.image.url}}" download><button class="btn text-white text-opacity-75"><i class="fa-solid fa-download"></i></button></a>  &nbsp;
         {% if request.user == objs.user %}
-        <a href="{% url 'discussion_update' objs.title %}"><button class="btn text-white text-opacity-75"><i class="fa-solid fa-pen-to-square"></i></button></a>  &nbsp;
-        <a href="{% url 'discussion_delete' objs.id %}"><button name="delete" class="btn text-white text-opacity-75"><i class="fa-solid fa-trash"></i></button></a> &nbsp;
+        <a href="{% url 'discussion_update' objs.id %}">
+            <button class="btn text-white text-opacity-75">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+        </a>  &nbsp;
+        <a href="{% url 'discussion_delete' objs.id %}">
+            <button name="delete" class="btn text-white text-opacity-75">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </a> &nbsp;
         {% endif %}
       </p>
       <div class="collapse" id="collapseExample">
@@ -82,14 +90,14 @@
             <br>
             <ul>
               {% for m in msg %}
-              {% if m.post == objs.title %}
+              {% if m.discussion.id == objs.id %}
                   <li style="list-style: none;"><a href="{% url 'profile' m.user.id %}" style="text-decoration: none; color: cyan;">  @{{ m.user.username }} </a> &nbsp; <i style="color: rgb(199, 199, 199);">{{ m.created|timesince }} ago</i> &nbsp;</li>
                   {% if request.user == m.user %}
-
-
-                   <a href="delete_message/{{m.id}}"><button class="btn" type="submit" name="dele"><i class="fa-solid fa-trash-can" style="color: #e2e2e2;"></i></button></a>
-
-
+                   <a href="delete_message/{{m.id}}">
+                       <button class="btn" type="submit" name="dele">
+                           <i class="fa-solid fa-trash-can" style="color: #e2e2e2;"></i>
+                       </button>
+                   </a>
                   {% endif %}
 
                    {{ m.text }}
