@@ -1,20 +1,7 @@
-# Photography Blog
+## Photography Blog
 
-Requirements:
-
-Check requirements.txt file or run pip3 freeze
-
-Run:
-
-1. Activate your enviroment
-2. Run: 
-        
-        - python manage.py makemigrations
-
-        - python manage.py migrate
-        
-        - python manage.py runserver
-        
-You are ready to browse the features of web applications
-
-In order to skip authentication part you can create a superuser and login in your django localhost/admin
+1. User can create or login into the website.
+2. Share their photos with title and description.
+3. View other user's profile and their posts.
+4. Post comments on all posts and can able to delete them.
+5. Users can simply delete or create their accounts.
