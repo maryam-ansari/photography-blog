@@ -255,10 +255,16 @@ def discussion_update(request, t):
     form = DiscussionForm(instance=discussion)
 
     if request.method == 'POST':
+        print("Inside update: POST")
         form = DiscussionForm(request.POST, instance=discussion)
         if form.is_valid():
-            form.save()
+            print("Form is valid: Saving it...")
+            discussion = form.save(commit=False)
+            discussion.title = request.POST.get('title')
+            discussion.description = request.POST.get('description')
+            discussion.save()
+            print("Discussion updated!")
             return redirect('discussion_list')
 
-    context = {'form': form, 'title': discussion}
+    context = {'form': form, 'discussion': discussion}
     return render(request, 'base/discussion_update.html', context)
